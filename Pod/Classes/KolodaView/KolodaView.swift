@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import pop
 
 // Default values
 private let defaultCountOfVisibleCards = 3
@@ -23,10 +22,12 @@ private let defaultAlphaValueOpaque: CGFloat = 1.0
 private let defaultAlphaValueTransparent: CGFloat = 0.0
 private let defaultAlphaValueSemiTransparent: CGFloat = 0.7
 
+
 // Direction of visible cards
 public enum VisibleCardsDirection: Int {
     case top, bottom
 }
+
 
 public protocol KolodaViewDataSource: class {
     
@@ -34,7 +35,9 @@ public protocol KolodaViewDataSource: class {
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView?
+    
 }
+
 
 public extension KolodaViewDataSource {
     
@@ -45,6 +48,7 @@ public extension KolodaViewDataSource {
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
 		return .default
 	}
+    
 }
 
 public protocol KolodaViewDelegate: class {
@@ -68,6 +72,7 @@ public protocol KolodaViewDelegate: class {
     
 }
 
+
 public extension KolodaViewDelegate {
     
     func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool { return true }
@@ -86,7 +91,9 @@ public extension KolodaViewDelegate {
     func koloda(_ koloda: KolodaView, shouldDragCardAt index: Int ) -> Bool { return true }
     func kolodaPanBegan(_ koloda: KolodaView, card: DraggableCardView) {}
     func kolodaPanFinished(_ koloda: KolodaView, card: DraggableCardView) {}
+    
 }
+
 
 open class KolodaView: UIView, DraggableCardDelegate {
     
@@ -160,6 +167,7 @@ open class KolodaView: UIView, DraggableCardDelegate {
         return frontCard.dragBegin
     }
 
+    
     override open func layoutSubviews() {
         super.layoutSubviews()
         
@@ -804,4 +812,5 @@ open class KolodaView: UIView, DraggableCardDelegate {
             }
         }
     }
+    
 }

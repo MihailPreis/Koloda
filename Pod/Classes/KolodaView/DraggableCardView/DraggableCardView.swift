@@ -8,12 +8,14 @@
 
 import UIKit
 
+
 public enum DragSpeed: TimeInterval {
     case slow = 2.0
     case moderate = 1.5
     case `default` = 0.8
     case fast = 0.4
 }
+
 
 protocol DraggableCardDelegate: class {
     
@@ -28,6 +30,7 @@ protocol DraggableCardDelegate: class {
     func card(cardSwipeSpeed card: DraggableCardView) -> DragSpeed
     func card(cardPanBegan card: DraggableCardView)
     func card(cardPanFinished card: DraggableCardView)
+    
 }
 
 //Drag animation constants
@@ -43,6 +46,7 @@ private let cardResetAnimationSpringSpeed: CGFloat = 20.0
 private let cardResetAnimationKey = "resetPositionAnimation"
 private let cardResetAnimationDuration: TimeInterval = 0.2
 internal var cardSwipeActionAnimationDuration: TimeInterval = DragSpeed.default.rawValue
+
 
 public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
 
@@ -427,4 +431,5 @@ public class DraggableCardView: UIView, UIGestureRecognizerDelegate {
             }
         }
     }
+    
 }

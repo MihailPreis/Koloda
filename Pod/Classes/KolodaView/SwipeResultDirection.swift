@@ -9,7 +9,8 @@
 import Foundation
 import CoreGraphics
 
-public enum SwipeResultDirection: String {
+
+public enum SwipeResultDirection: String, CaseIterable {
     
     case left
     case right
@@ -19,11 +20,9 @@ public enum SwipeResultDirection: String {
     case topRight
     case bottomLeft
     case bottomRight
+    
 }
 
-#if swift(>=4.2)
-extension SwipeResultDirection: CaseIterable { }
-#endif
 
 extension SwipeResultDirection {
     
@@ -53,6 +52,7 @@ extension SwipeResultDirection {
         let h = VerticalPosition.bottom.rawValue - VerticalPosition.top.rawValue
         return CGRect(x: HorizontalPosition.left.rawValue, y: VerticalPosition.top.rawValue, width: w, height: h)
     }
+    
 }
 
 
@@ -61,13 +61,16 @@ private enum VerticalPosition: CGFloat {
     case top = -1
     case middle = 0
     case bottom = 1
+    
 }
+
 
 private enum HorizontalPosition: CGFloat {
     
     case left = -1
     case middle = 0
     case right = 1
+    
 }
 
 
@@ -94,12 +97,19 @@ private struct Direction {
     static let topRight = Direction(horizontalPosition: .right, verticalPosition: .top)
     static let bottomLeft = Direction(horizontalPosition: .left, verticalPosition: .bottom)
     static let bottomRight = Direction(horizontalPosition: .right, verticalPosition: .bottom)
+    
 }
 
 
 //MARK: Geometry
 
 extension CGPoint {
+    
+    var modulo: CGFloat {
+        return sqrt(self.x*self.x + self.y*self.y)
+    }
+    
+    
     func distanceTo(_ point: CGPoint) -> CGFloat {
         return sqrt(pow(point.x - self.x, 2) + pow(point.y - self.y, 2))
     }
@@ -119,10 +129,6 @@ extension CGPoint {
     
     func dotProductWith(_ point: CGPoint) -> CGFloat {
         return (self.x * point.x) + (self.y * point.y)
-    }
-    
-    var modulo: CGFloat {
-        return sqrt(self.x*self.x + self.y*self.y)
     }
     
     func distanceToRect(_ rect: CGRect) -> CGFloat {
@@ -173,9 +179,12 @@ extension CGPoint {
         }
         return nil
     }
+    
 }
 
+
 typealias CGLine = (start: CGPoint, end: CGPoint)
+
 
 extension CGRect {
     
@@ -191,8 +200,8 @@ extension CGRect {
     var rightLine: CGLine {
         return (Direction.topRight.point, Direction.bottomRight.point)
     }
-    
     var perimeterLines: [CGLine] {
         return [topLine, leftLine, bottomLine, rightLine]
     }
+    
 }
